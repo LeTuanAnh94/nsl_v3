@@ -1,3 +1,3 @@
-# khoahoc
+# NanoSkillsLearning
 
 a [Sails](http://sailsjs.org) application
