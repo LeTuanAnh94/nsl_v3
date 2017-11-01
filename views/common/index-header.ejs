@@ -26,7 +26,7 @@
 											<li class="pd-10">
 												<p>{{$root.listCart.length}} Khoá học trong giỏ</p>
 												<h5>Tổng: <span class="total_price_value">{{$root.listCartMoney | vnd}}</span></h5>
-												<a href="/cart" class="btn btn-google color-fff" ng-if="$root.listCart.length">Xem giỏ hàng</a href="/cart">
+												<a href="/cart" class="btn btn-google color-fff" ng-if="$root.listCart.length">Xem giỏ hàng</a>
 											</li>
 									 </ul>
 						 		</li>
@@ -34,12 +34,12 @@
 						 		<!-- EJS -->
 						 		<% if (user == null) { %>
 								<li class="dropdown">
-									 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dang nhap, dang ki tai khoan<b class="caret"></b></a>
+									 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Đăng Nhập ,Đăng Ký Tài Khoản<b class="caret"></b></a>
 									 <ul class="dropdown-menu min-w-230">
-											<li><a href="#" class="btn btn-default w-200 pd-10 bold mg-auto mg-top-bottom-10" data-toggle="modal" data-target="#loginModal">Dang nhap</a></li>
-											<li><a class="btn btn-default w-200 pd-10 bold mg-auto mg-top-bottom-10" data-toggle="modal" data-target="#registerModal">Dang ky tai khoan moi</a></li>
-											<li><a href="/login/facebook" class="btn btn-facebook w-200 pd-10 bold color-fff mg-auto mg-top-bottom-10">Dang nhap voi Facebook</a></li>
-											<li><a href="/login/google" class="btn btn-google w-200 pd-10 bold color-fff mg-auto mg-top-bottom-10">Dang nhap voi Google</a></li>
+											<li><a href="#" class="btn btn-default w-200 pd-10 bold mg-auto mg-top-bottom-10" data-toggle="modal" data-target="#loginModal">Đăng Nhập</a></li>
+											<li><a class="btn btn-default w-200 pd-10 bold mg-auto mg-top-bottom-10" data-toggle="modal" data-target="#registerModal">Đăng Ký Tài Khoản Mới</a></li>
+											<!-- <li><a href="/login/facebook" class="btn btn-facebook w-200 pd-10 bold color-fff mg-auto mg-top-bottom-10">Dang nhap voi Facebook</a></li>
+											<li><a href="/login/google" class="btn btn-google w-200 pd-10 bold color-fff mg-auto mg-top-bottom-10">Dang nhap voi Google</a></li> -->
 											<li><a href="/teacher/login" class="btn btn-default w-200 pd-10 bold mg-auto mg-top-bottom-10">Giáo viên đăng nhập</a></li>
 									 </ul>
 								</li>
@@ -70,10 +70,10 @@
 									 	</div>
 									 </a>
 									 <ul class="dropdown-menu min-w-230">
-											<li><a href="/profile" class="btn btn-facebook w-200 pd-10 bold mg-auto mg-top-bottom-10 color-fff">My profile</a></li>
+											<li><a href="/profile" class="btn btn-facebook w-200 pd-10 bold mg-auto mg-top-bottom-10 color-fff">Hồ sơ cá nhân</a></li>
 											<!-- EJS -->
 					 						<% if (user.role == 'student') { %>
-					 						<li><a href="/payment-history" class="btn btn-google w-200 pd-10 bold mg-auto mg-top-bottom-10 color-fff">lịch sử giao dịch</a></li>
+					 						<li><a href="/payment-history" class="btn btn-google w-200 pd-10 bold mg-auto mg-top-bottom-10 color-fff">Lịch sử giao dịch</a></li>
 					 						<li><a href="/mycourse" class="btn btn-success w-200 pd-10 bold mg-auto">Khóa học đã mua</a></li>
 
 					 						<% } %>
@@ -84,7 +84,7 @@
 					 						<li><a href="/withdraw" class="btn btn-facebook w-200 pd-10 bold mg-auto mg-top-bottom-10 color-fff">Rút tiền</a></li>
 					 						<% } %>
 											<!-- EJS END -->
-											<li><a href="/logout" class="btn btn-default w-200 pd-10 bold mg-auto mg-top-bottom-10">Sign out</a></li>
+											<li><a href="/logout" class="btn btn-default w-200 pd-10 bold mg-auto mg-top-bottom-10">Đăng Xuất</a></li>
 									 </ul>
 								</li>
 								<% } %>
@@ -120,22 +120,26 @@
 	            		<validate-input class="mg-bottom-10" v-model="user.email" v-name="email" v-form="registerform" v-type="email" v-placeholder="Email" v-tooltip-placement="top" v-required="true"></validate-input>
 
 	            		<validate-input class="mg-bottom-10" v-model="user.password" v-name="password" v-form="registerform" v-type="password" v-placeholder="Mật khẩu" v-tooltip-placement="top" v-required="true" v-min-length="6" v-max-length="12"></validate-input>
+
+
+	            		  <validate-input class="mg-bottom-10" v-model="user.password_confirm" v-name="password_confirm" v-form="registerform" v-type="password" v-placeholder="Xác nhận Mật khẩu" v-tooltip-placement="top" v-required="true" ng-minlength="6" ng-maxlength="12" v-custom-validations="confirmPasswordValidation"></validate-input>
+
 	                	<div class="mg-top-10">
 	                		<button type="submit" class="btn btn-google w-200 pd-10 bold color-fff mg-auto mg-top-10 display-block" ng-click="submit(registerform.$valid)">ĐĂNG KÝ</button>
 	                	</div>
 	            	</div>
             	</form>
             </div>
-            <div class="modal-footer">
+           <!--  <div class="modal-footer">
             	<div class="row">
 	            	<div class="col-sm-6">
-	            		<a href="/login/facebook" class="w-100-percent display-block btn btn-facebook w-200 pd-10 bold color-fff mg-auto mg-top-bottom-10">Dang nhap voi Facebook</a>
+	            		<a href="/login/facebook" class="w-100-percent display-block btn btn-facebook w-200 pd-10 bold color-fff mg-auto mg-top-bottom-10">Đăng nhập với Facebook</a>
 	        		</div>
 					<div class="col-sm-6">
-						<a href="/login/google" class="w-100-percent display-block btn btn-google w-200 pd-10 bold color-fff mg-auto mg-top-bottom-10">Dang nhap voi Google</a>
+						<a href="/login/google" class="w-100-percent display-block btn btn-google w-200 pd-10 bold color-fff mg-auto mg-top-bottom-10">Đăng nhập với  Google</a>
 					</div>
 				</div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
@@ -171,7 +175,7 @@
 							</script>
 	                	</div>
 	                	<div class="mg-top-10">
-	                		<button type="submit" class="btn btn-google w-200 pd-10 bold color-fff mg-auto mg-top-10 display-block" ng-click="submit(loginform.$valid)">ĐĂNG Nhập</button>
+	                		<button type="submit" class="btn btn-google w-200 pd-10 bold color-fff mg-auto mg-top-10 display-block" ng-click="submit(loginform.$valid)">Đăng Nhập</button>
 	                	</div>
 	            	</div>
             	</form>
@@ -179,10 +183,10 @@
             <div class="modal-footer">
             	<div class="row">
 	            	<div class="col-sm-6">
-	            		<a href="/login/facebook" class="w-100-percent display-block btn btn-facebook w-200 pd-10 bold color-fff mg-auto mg-top-bottom-10">Dang nhap voi Facebook</a>
+	            		<a href="/login/facebook" class="w-100-percent display-block btn btn-facebook w-200 pd-10 bold color-fff mg-auto mg-top-bottom-10">Đăng Nhập Với Facebook</a>
 	        		</div>
 					<div class="col-sm-6">
-						<a href="/login/google" class="w-100-percent display-block btn btn-google w-200 pd-10 bold color-fff mg-auto mg-top-bottom-10">Dang nhap voi Google</a>
+						<a href="/login/google" class="w-100-percent display-block btn btn-google w-200 pd-10 bold color-fff mg-auto mg-top-bottom-10">Đăng Nhập Với Google</a>
 					</div>
 				</div>
             </div>

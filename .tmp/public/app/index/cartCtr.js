@@ -1,6 +1,7 @@
 (function () {
 	myApp.controller('cartCtr', function($scope, $http, $rootScope){
 		///////// CART ROOTSCOPE//////////////////////////////
+		//
 		$rootScope.addToCart = function(id){
 			var courseId = parseInt(id);
 			$http.post("/add-to-cart",{id:courseId},{}).then(function(res){
