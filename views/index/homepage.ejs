@@ -63,41 +63,45 @@
 					<h4>Kết quả tìm kiếm cho " <%= queryStr.searchCourseName%> "</h4>
 				</div>
 				<%}%>
-				<div class="row">
-					<!-- EJS -->
-					<% for(var i=0; i < listCourses.length; i++) { %>
-					<div class="col-md-4 col-sm-6 col-xs-12">
-						 <a href="/course/view/<%=listCourses[i].id%>" class="thumbnail relative text-decoration-none">
-							<img src="<%= listCourses[i].picture%>" class="img-responsive" alt="" />
-							<h5 class="course-title"><%= listCourses[i].name%></h5>
-							<div class="container-fluid">
-								<div class="row">
-									<div class="col-xs-6">
-										<div class="course-author">
-											<span><%=listCourses[i].teacher.fullname%></span>
-										</div>
-									</div>
-									<div class="col-xs-6">
-										<div class="course-sale">
-											<!-- EJS -->
-											<% if(listCourses[i].price < listCourses[i].oldPrice) { %>
-											<span class="old-price">Giá cũ: {{'<%= listCourses[i].oldPrice%>'| vnd}}</span>
-											<%}%>
-											<!-- EJS END -->
-											<span class="new-price">{{'<%= listCourses[i].price%>'| vnd}}</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- EJS -->
-							<% if(listCourses[i].price < listCourses[i].oldPrice) { %>
-							<span class="label label-sale">{{'<%= listCourses[i].oldPrice%>-<%= listCourses[i].price%>'| pricepercent}}</span>
-							<%}%>
-						 </a href="#">
-					</div>
-					<% } %>
-					<!-- EJS END -->
-				</div>
+			 <div class="row">
+      <% for(var i=0; i < listCourses.length; i++) { %>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+             <a href="/course/view/<%=listCourses[i].id%>" class="thumbnail relative text-decoration-none">
+              <img src="<%= listCourses[i].picture%>" class="img-responsive" alt="" />
+              <h5 class="course-title"><%= listCourses[i].name%></h5>
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-sm-12 col-xs-12">
+                    <div class="course-mota">
+                      <span><%=listCourses[i].generalDescription%></span>
+                    </div>
+                  </div>
+              </div>
+         	 </div>
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="course-author">
+                      <span><%=listCourses[i].teacher.fullname%></span>
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="course-sale">
+                      <!-- EJS -->
+                     
+                      <!-- EJS END -->
+                      <span class="new-price">{{'<%= listCourses[i].price%>'| vnd}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- EJS -->
+             
+             </a href="#">
+          </div>
+          <% } %>
+       
+      </div>
 				<div class="row">
 					<div class="col-sm-12 col-md-12">
 						<ul class="pagination pagination-lg pull-right">
