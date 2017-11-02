@@ -1697,10 +1697,6 @@ var utils = {};
 	}
 })();
 
-<<<<<<< HEAD
-
-=======
->>>>>>> b2dcdea6e9ca97d5ec6a7c7a0027de99a4a8ffca
 var myApp;
 (function () {
 	myApp = angular.module('myApp',['ui.bootstrap','trumbowyg-ng','ngSanitize','chart.js']);
@@ -2538,10 +2534,7 @@ var myApp;
 (function () {
 	myApp.controller('cartCtr', function($scope, $http, $rootScope){
 		///////// CART ROOTSCOPE//////////////////////////////
-<<<<<<< HEAD
-=======
 		//
->>>>>>> b2dcdea6e9ca97d5ec6a7c7a0027de99a4a8ffca
 		$rootScope.addToCart = function(id){
 			var courseId = parseInt(id);
 			$http.post("/add-to-cart",{id:courseId},{}).then(function(res){
@@ -3011,9 +3004,6 @@ var myApp;
 	  			}
 	  		});
 		}
-<<<<<<< HEAD
-	});
-=======
 
 ///
 
@@ -3038,7 +3028,6 @@ $scope.confirmPasswordValidation = [{
 
 
 	);
->>>>>>> b2dcdea6e9ca97d5ec6a7c7a0027de99a4a8ffca
 	
 })();
 (function () {
