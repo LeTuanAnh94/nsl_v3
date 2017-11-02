@@ -41,8 +41,8 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/duc/khoahoc.git"
+    "url": "git://github.com/LeTuanAnh94/nsl_v3"
   },
-  "author": "duc",
+  "author": "LeTuanAnh94",
   "license": ""
 }

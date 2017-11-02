@@ -29,6 +29,29 @@
 	  			}
 	  		});
 		}
-	});
+
+///
+
+$scope.confirmPasswordValidation = [{
+			func:function(val,cb){
+				if(val == $scope.user.password){
+					cb(this.name,true);
+				}else{
+					cb(this.name, false);
+				}  	
+			},
+			name:'confirm_password',
+			message:'Mật khẩu không khớp'
+		}];
+
+
+//
+
+
+	}
+
+
+
+	);
 	
 })();
