@@ -14,7 +14,7 @@ module.exports = {
 			return res.json({message:'error'});
 		let payment = function(){
 	    	return new Promise(function(fullfill, reject){
-	    		function dequy(list,i){
+	    		function recurPayment(list,i){
 	    			console.log(list.length, i)
 	    			if(i >= list.length)	return fullfill();
 	    			OrderCourse.findOne({
@@ -28,18 +28,18 @@ module.exports = {
 			    			if(!od){
 			    				OrderCourse.create({student:req.user.id,course:list[i], note:req.body.note, cost:_course.price,datePay:new Date()}).exec(function(err, _od){
 			    					if(err) return reject(err);
-			    					dequy(list,++i);
+									recurPayment(list,++i);
 			    				})
 			    			}else{
 			    				OrderCourse.update({id:od.id},{student:req.user.id,course:list[i], note:req.body.note, cost:_course.price,datePay:new Date()}).exec(function(err, _od){
 			    					if(err) return reject(err);
-			    					dequy(list,++i);
+									recurPayment(list,++i);
 			    				})
 			    			}
 		    			})
 		    		});
 	    		}
-	    		dequy(req.session.passport.user.cart,0);
+				recurPayment(req.session.passport.user.cart,0);
 	    		
 	    	})
 	    }

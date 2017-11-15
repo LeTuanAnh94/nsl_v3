@@ -6,7 +6,7 @@
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col col-xs-6 col-sm-4">
-						<h3 class="panel-title bold">Level <button class="btn btn-primary" data-toggle="modal" data-target="#newLevelModal">Add new</button></h3>
+						<h3 class="panel-title bold">Cấp độ <button class="btn btn-primary" data-toggle="modal" data-target="#newLevelModal">Thêm mới</button></h3>
 					</div>
 					<div class="col col-xs-6 col-sm-8">
 						<input type="text" class="form-control" placeholder="Search by level name" ng-model="searchlevelName">
@@ -18,7 +18,7 @@
 					<thead>
 						<tr>
 							<th class="hidden-xs text-center">ID</th>
-							<th>Name</th>
+							<th>Tên</th>
 							<th class="text-center">Action</th>
 						</tr>
 					</thead>
@@ -27,8 +27,8 @@
 							<td class="hidden-xs" align="center">{{level.id}}</td>
 							<td>{{level.name}}</td>
 							<td align="center">
-								<a class="btn btn-warning" ng-click="prepareEdit(level.id,level.name)" data-toggle="modal" data-target="#editLevelModal">EDIT</a>
-								<a class="btn btn-danger" ng-click="prepareRemove(level.id)" data-toggle="modal" data-target="#removeLevelModal">Remove</a>
+								<a class="btn btn-warning" ng-click="prepareEdit(level.id,level.name)" data-toggle="modal" data-target="#editLevelModal">Sửa</a>
+								<a class="btn btn-danger" ng-click="prepareRemove(level.id)" data-toggle="modal" data-target="#removeLevelModal">Xóa</a>
 							</td>
 						</tr>
 					</tbody>

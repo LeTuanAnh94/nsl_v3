@@ -9,6 +9,7 @@ function savePicture(courseId,img, callback){
 	var fs = require('fs');
 	var path = require('path');
 	var folderPicuture = path.join(__dirname, '../../assets/coverPictures/' + courseId);
+	// check exist file
 	var myMkdirSync = function(dir){
 		if (fs.existsSync(dir)){
 			return
@@ -829,17 +830,18 @@ module.exports = {
 				})
 			});
 		}
+		//đệ quy
 		var getAllCourse = function(){
 			return new Promise(function(fullfill, reject){
-				function dequy(list, i){
+				function recurCourse(list, i){
 					if(i >= list.length) return fullfill();
 					Course.findOne({id:list[i]}).exec(function(err, _course){
 						if(err) return reject(err);
 						listCourses.push(_course);
-						dequy(list, ++i);
+						recurCourse(list, ++i);
 					})
-				}				
-				dequy(req.session.passport.user.cart, 0);
+				}
+				recurCourse(req.session.passport.user.cart, 0);
 			});
 		}
 		checkOrderCourse().then(getAllCourse).then(function(){
@@ -854,18 +856,19 @@ module.exports = {
 		if(!req.session.passport.user.cart){
 			req.session.passport.user.cart = [];
 		}
+		// console.log("+++"+req.session.passport.user.cart);
 		var listCourses = [];
 		var getAllCourse = function(){
 			return new Promise(function(fullfill, reject){
-				function dequy(list, i){
+				function recurCartCourse(list, i){
 					if(i >= list.length) return fullfill();
 					Course.findOne({id:list[i]}).exec(function(err, _course){
 						if(err) return reject(err);
 						listCourses.push(_course);
-						dequy(list, ++i);
+						recurCartCourse(list, ++i);
 					})
-				}				
-				dequy(req.session.passport.user.cart, 0);
+				}
+				recurCartCourse(req.session.passport.user.cart, 0);
 			});
 		}
 		getAllCourse().then(function(){

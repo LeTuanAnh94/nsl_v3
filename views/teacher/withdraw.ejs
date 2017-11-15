@@ -1,7 +1,8 @@
 <%- partial ('../common/index-header.ejs') %>
 <div class="container" ng-controller="withdrawCtr">
 	<h2>Rút tiền về tài khoản</h2>
-	<div><h3 style="display: inline-block;">Số dư:</h3> <span class="new-price">{{'<%= user.balance%>'| vnd}}</span></div>
+	<%var balance = parseInt(user.balance)*90/100%>
+	<div><h3 style="display: inline-block;">Số dư:</h3> <span class="new-price">{{'<%=balance %>'| vnd}}</span></div>
 	<form name="withdrawForm" class="validate-input" novalidate ng-submit="submit(withdrawForm.$valid)">
 		<validate-input class="mg-bottom-10" v-model="money" v-name="money" v-form="withdrawForm" v-type="number" v-placeholder="Nhập số tiền muốn rút" v-tooltip-placement="top" v-required="true" v-min="100000" v-max="<%= user.balance%>"></validate-input>
 		<div><span class="course-price">{{money | vnd}}</span></div>

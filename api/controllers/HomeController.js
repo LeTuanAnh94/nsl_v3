@@ -8,7 +8,7 @@ var fs = require('fs');
 var request = require('request');
 
 var checkRole = require('../services/checkRole.js').check;
-var getUserProfile = require('../services/sqlSupport.js').getUserProfile_promise;
+// var getUserProfile = require('../services/sqlSupport.js').getUserProfile_promise;
 var query =  require('../services/query.js');
 module.exports = {
 /*COMMON*/
@@ -20,16 +20,21 @@ module.exports = {
 			count:0,
 			limit:6,
 		}
+		// tạo đối tượng where để gán status : active
 		var where = {status:'active'};
+        // tạo đối tượng data từ req
 		if((isNaN(req.query.page) && req.query.page) || parseInt(req.query.page) <= 0 || (isNaN(req.query.teacher) && req.query.teacher) || (isNaN(req.query.category) && req.query.category) || (isNaN(req.query.level) && req.query.level)){
 			return res.notFound()
 		}
 		if(req.query.page){
+
 			pagging.current = parseInt(req.query.page)-1;
 		}
 		if(req.query.category){
+
 			where.categoryId = parseInt(req.query.category);
 			data.queryStr.category = where.categoryId;
+
 		}
 		if(req.query.level){
 			where.levelId = parseInt(req.query.level);
@@ -38,6 +43,7 @@ module.exports = {
 		if(req.query.teacher){
 			where.teacher = parseInt(req.query.teacher);
 			data.queryStr.teacher = where.teacher;
+
 		}
 		if(req.query.coursename){
 			where.name = {'contains':req.query.coursename};
@@ -101,7 +107,7 @@ module.exports = {
 	course: function(req, res) {
 		var data = {};
 		var courseId = parseInt(req.param('id'));
-		var getCount = function(){
+		var getCourse = function(){
 			return new Promise(function(fullfill, reject){
 				Course.findOne({id:courseId, status:'active'}).populate(['teacher','categoryId','levelId']).exec(function(err, _course){
 					if(err) return reject();
@@ -123,6 +129,7 @@ module.exports = {
 							data.course.totalLesson++;
 						}
 					}
+
 					return fullfill();
 				})
 			});
@@ -136,11 +143,15 @@ module.exports = {
 				}).populate('teacher').exec(function(err, list){
 					if(err) return reject();
 					data.course.relationCourse = list;
+
+					// for(var iGet=0;iGet<res.data.course.relationCourse.length;iGet++){
+					// 	console.log(data.course.relationCourse[iGet])
+					// }
 					return fullfill();
 				})
 			});
 		}
-		getCount().then(getAll).then(getRelationCourse).then(function(){
+		getCourse().then(getAll).then(getRelationCourse).then(function(){
 			data.user = req.user;
 			res.view('index/course.ejs', data);
 		}).catch(function(err){
@@ -391,10 +402,12 @@ module.exports = {
 	    	return new Promise(function(fullfill, reject){
 				Transaction.find({
 					where:{teacher:req.user.id},
-					sort:'createdAt DESC'
+					sort:'createdAt DESC' // sort  Descending
 				}).exec(function(err, trans){
 					if(err) return reject(err);
 					data.transactions = trans;
+					// var x = parseInt(data.transactions.balance)*70;
+					console.log(req.user.id)
 					return fullfill();
 				})
 	    	})
@@ -501,61 +514,7 @@ module.exports = {
 	},
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-	
-
-	
 	//TEACHER
-
-	
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
 
 ////////////////////////////////////////////////////////////////
 	

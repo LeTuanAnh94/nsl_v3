@@ -89,21 +89,6 @@ module.exports.routes = {
 
   //ADMIN
 
-
-
-  
-
-
-  
-
-  
-
-
-
-
-
-
-
   ////////////////////////////NEW///////////////////////////////////////
 
   // AUTHENTICATION
@@ -206,7 +191,7 @@ module.exports.routes = {
   'POST /admin/list-teacher': 'AdminController.listTeacher',
   'POST /admin/update-acount-to-teacher-role':'AdminController.updateAcountToTeacherRole',
   'POST /admin/reject-acount-to-teacher-role':'AdminController.rejectAcountToTeacherRole',
-
+// hide
 
   'POST /list-simple-category':'CategoryController.listSimpleCategory',
 

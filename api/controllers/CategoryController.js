@@ -6,6 +6,7 @@
  */
 var checkRole = require('../services/checkRole.js').check;
 module.exports = {
+	// search detail of 1 category
 	listSimpleCategory: function(req, res){
 		var count = 0;
 		var categories = [];

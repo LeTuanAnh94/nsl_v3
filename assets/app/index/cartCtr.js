@@ -12,7 +12,7 @@
 					$rootScope.cartOpen = true;
 					$rootScope.listCart = res.data.listCourses;
 					$rootScope.listCartMoney = $rootScope.listCart.sum("price");
-					$rootScope.listCartMoneyOld = $rootScope.listCart.sum("oldPrice");
+					// $rootScope.listCartMoneyOld = $rootScope.listCart.sum("oldPrice");
 				}else if(res.data.message == 'not_student'){
 					utils.alert({
                         title:'Thông báo',

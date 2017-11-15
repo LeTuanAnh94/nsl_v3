@@ -25,6 +25,7 @@ module.exports = {
 	    }
 	    let downMoney = function(){
 	    	return new Promise(function(fullfill, reject){
+
 				Teacher.update(req.user.id,{balance:req.user.balance - req.body.reqMoney}).exec(function(err, _t){
 					if(err) return reject(err);
 					return fullfill();

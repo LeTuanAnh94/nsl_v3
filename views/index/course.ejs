@@ -12,15 +12,12 @@
 			<img style="width: 100%; height: 100%" class="detail-thumbnail img-bg" src="<%=course.picture%>" alt="Tund01">
 		</div>
 		<div class="col-sm-4 relative">
+
 			<div class="form-in-card">
 				<div class="area-sale">
-					<%if(course.price < course.oldPrice){%>
-					<p class="old-price">{{'<%= course.oldPrice%>'| vnd}}</p>
-					<%}%>
-					<p class="new-price sale-off">{{'<%= course.price%>'| vnd}}</p>
-					<%if(course.price < course.oldPrice){%>
-					<p class="save-price">Tiết kiệm {{'<%= course.oldPrice - course.price%>'| vnd}}</p>
-					<%}%>
+
+					<p class="new-price">Giá : {{'<%= course.price%>'| vnd}}</p>
+
 				</div>
 				<table class="table table-info">
 					<tbody>
@@ -192,7 +189,7 @@
 				<% if(course.relationCourse[i].price < course.relationCourse[i].oldPrice) { %>
 				<span class="label label-sale">{{'<%= course.relationCourse[i].oldPrice%>-<%= course.relationCourse[i].price%>'| pricepercent}}</span>
 				<%}%>
-			 </a href="#">
+			 </a>
 		</div>
 		<% } %>
 		<!-- EJS END -->

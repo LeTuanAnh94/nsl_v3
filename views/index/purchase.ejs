@@ -3,10 +3,10 @@
 	<div class="row">
 		<div class="col-sm-5">
 			<div class="background-fff pd-10">
-				<h2>Hóa đơn</h2>
+				<center><h2>Hóa đơn</h2></center>
 				<hr>
 				<div>
-					<h4>Đơn vị <span class="pull-right">VND</span></h4>
+					<h3>Khóa Học<span class="pull-right">VND</span></h3><br>
 					<p  ng-repeat="course in $root.listCart">{{course.name}}<span class="pull-right">{{course.price | vnd}}</span></p>
 				</div>
 				<hr>
@@ -26,10 +26,10 @@
 					<div class="bs-callout bs-callout-danger">
 						<h2>Số Tài Khoản:     002 1000 252 385</h2>
 
-						<h2>Chủ tài khoản:   Công ty TNHH Techmaster Việt Nam</h2>
+						<h2>Chủ tài khoản:   Công ty TNHH FPT Việt Nam</h2>
 
 						<h2>Ngân hàng:        Ngân hàng Vietcombank, Chi nhánh Hà Nội</h2>
-						<h3>Nội dung chuyển khoản: "Mua khóa học từ NanoSkilleaning, số điện thoại:016xxxxxxx"</h3>
+						<h3>Nội dung chuyển khoản: "Mua khóa học từ NanoSkillsLeaning, số điện thoại:016xxxxxxx"</h3>
 						<h4>Sau khi nhận được thanh toán.Chúng tôi sẽ liên lạc với bạn để xác thực và kích hoạt khóa học cho bạn.</h4>
 						<validate-input class="mg-bottom-10" v-model="$root.note" v-name="phone" v-form="paymentForm" v-type="text" v-placeholder="Số điện thoại" v-tooltip-placement="top" v-required="true" v-custom-validations="$root.phoneValidation"></validate-input>
 					</div>

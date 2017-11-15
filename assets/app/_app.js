@@ -1,8 +1,10 @@
 var myApp;
 (function () {
 	myApp = angular.module('myApp',['ui.bootstrap','trumbowyg-ng','ngSanitize','chart.js']);
+	//filter:search name have this string
 	myApp.filter('vnd', function() {
 		return function(input) {
+			//funkyStringSplit: split 1 element have 3 character
 			function funkyStringSplit( s ){
 			    var i = s.length % 3;
 			    var parts = i ? [ s.substr( 0, i ) ] : [];
@@ -26,6 +28,7 @@ var myApp;
 			}
 		};
 	});
+	// count percent of sale
 	myApp.filter('pricepercent', function() {
 		return function(input) {
 			var arr = input.split('-');
@@ -35,6 +38,7 @@ var myApp;
 			return x + '%';
 		};
 	});
+	//
 	myApp.filter('space', function() {
 		return function(input) {
 			console.log(input)
@@ -42,6 +46,7 @@ var myApp;
 			return input;
 		};
 	});
+	//format datetime
 	myApp.filter('datetime', function() {
 		return function(input) {
 			x = new Date(input)
@@ -63,6 +68,7 @@ var myApp;
 
 })();
 (function () {
+	// define error //define content of tooltip to report user
 	var strVar="";
 	strVar += "<div class=\"validate-input\">";
 	strVar += "	<input type=\"{{vType}}\" class=\"form-control\" placeholder=\"{{vPlaceholder}}\" name=\"{{vName}}\" ng-model=\"vModel\" tooltip-enable=\"{{!vForm[vName].$valid}}\" tooltip-placement=\"{{vTooltipPlacement}}\" uib-tooltip-template=\"'validate.html'\" ng-class=\"!vForm[vName].$valid&&vForm.$submitted?'err':''\" ng-required=\"{{vRequired}}\" ng-minlength=\"{{vMinLength}}\" ng-maxlength=\"{{vMaxLength}}\" ng-min=\"{{vMin}}\" ng-max=\"{{vMax}}\">";
@@ -80,6 +86,7 @@ var myApp;
 	strVar += "	<\/script>";
 	strVar += "	<!-- END -->";
 	strVar += "<\/div>";
+
 	myApp.directive('validateInput', function(){
 		return{
 			restrict: 'AEM',
