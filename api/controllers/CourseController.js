@@ -216,6 +216,188 @@ module.exports = {
 			res.json({message:'error'})
 		})
 	},
+	saveCourse : function(req, res) {
+		var courseId = undefined;
+		var listCourseCategory = [];
+		var listLesson = [];
+		var listQuestion = [];
+		var createCourse = function(){
+			return new Promise(function(fullfill, reject){
+				Course.create({
+					name: req.body.name,
+					price: req.body.price,
+					oldPrice: req.body.oldPrice,
+					generalDescription: req.body.generalDescription,
+					requirement: req.body.requirement,
+					benefit: req.body.benefit,
+					objectAndGoals: req.body.objectAndGoals,
+					status:'save'
+				}).exec(function(err, course){
+					//XU LY LOI
+					if(err) return reject(err);
+
+					courseId = course.id;
+
+					savePicture(course.id,req.body.pictureData, function(err){
+						//XU LY LOI
+						if(err) return reject(err);
+						course.teacher = req.user.id;
+						course.categoryId = req.body.category.id;
+						course.levelId = req.body.level.id;
+						course.save(function(err){
+							//XU LY LOI
+							if(err) return reject(err);
+							return fullfill();
+						});
+					})
+				})
+			});
+		}
+		var createLessonCategory = function(){
+			return new Promise(function(fullfill, reject){
+				function insertDeQuy(list){
+					if(list.length==0) return fullfill();
+					LessonCategory.create({
+						name:list[0].name,
+						order:list[0].order
+					}).exec(function(err, _lessonCategory){
+						if(err) return reject(err);
+
+						list[0].id = _lessonCategory.id;
+						listCourseCategory.push(list[0]);
+
+						_lessonCategory.courseId = courseId;
+						_lessonCategory.save(function(err){
+							if(err) return reject(err);
+							list.shift();
+							if(list.length==0) return fullfill();
+							insertDeQuy(list);
+						});
+					})
+				}
+				insertDeQuy(req.body.listCourseCategory);
+			});
+		}
+		var createLesson = function(){
+			return new Promise(function(fullfill, reject){
+				function insertDeQuyTwo(list, _lessonCategoryId, callback){
+					if(list.length==0) return callback();
+					Lesson.create({
+						name:list[0].name,
+						linkVideo:list[0].linkVideo,
+						typeVideo:list[0].typeVideo,
+						content:list[0].content,
+						order:list[0].order,
+					}).exec(function(err, _lesson){
+						if(err) return callback(err);
+
+						list[0].id = _lesson.id;
+						listLesson.push(list[0]);
+
+						_lesson.lessonCategoryId = _lessonCategoryId;
+						_lesson.save(function(err){
+							if(err) return callback(err);
+							list.shift();
+							if(list.length==0) return callback();
+							insertDeQuyTwo(list,_lessonCategoryId, callback);
+						})
+					})
+				}
+				function insertDeQuyOne(list){
+					if(list.length==0) return fullfill();
+					insertDeQuyTwo(list[0].listLesson,list[0].id,function(err){
+						if(err) return reject(err);
+						list.shift();
+						if(list.length==0) return fullfill();
+						insertDeQuyOne(list);
+					});
+
+				}
+				insertDeQuyOne(listCourseCategory);
+			});
+		}
+
+		var createQuestion = function(){
+			return new Promise(function(fullfill, reject){
+				function insertDeQuyTwo(list, _lessonId, callback){
+					if(list.length==0) return callback();
+					Question.create({
+						content:list[0].content
+					}).exec(function(err, _question){
+						if(err) return callback(err);
+
+						list[0].id = _question.id;
+						listQuestion.push(list[0]);
+
+						_question.lessonId = _lessonId;
+						_question.save(function(err){
+							if(err) return callback(err);
+							list.shift();
+							if(list.length==0) return callback();
+							insertDeQuyTwo(list,_lessonId, callback);
+						})
+					})
+				}
+				function insertDeQuyOne(list){
+					if(list.length==0) return fullfill();
+					insertDeQuyTwo(list[0].listQuestion,list[0].id,function(err){
+						if(err) return reject(err);
+						list.shift();
+						if(list.length==0) return fullfill();
+						insertDeQuyOne(list);
+					});
+
+				}
+				insertDeQuyOne(listLesson);
+			});
+		}
+
+		var createAnswer = function(){
+			return new Promise(function(fullfill, reject){
+				function insertDeQuyTwo(list, _questionId, callback){
+					if(list.length==0) return callback();
+					Answer.create({
+						content:list[0].content,
+						isTrue:list[0].isTrue,
+					}).exec(function(err, _answer){
+						if(err) return callback(err);
+
+						_answer.questionId = _questionId;
+						_answer.save(function(err){
+							if(err) return callback(err);
+							list.shift();
+							if(list.length==0) return callback();
+							insertDeQuyTwo(list,_questionId, callback);
+						})
+					})
+				}
+				function insertDeQuyOne(list){
+					if(list.length==0) return fullfill();
+					insertDeQuyTwo(list[0].listAnswer,list[0].id,function(err){
+						if(err) return reject(err);
+						list.shift();
+						if(list.length==0) return fullfill();
+						insertDeQuyOne(list);
+					});
+
+				}
+				insertDeQuyOne(listQuestion);
+			});
+		}
+		createCourse().then(createLessonCategory).then(createLesson).then(createQuestion).then(createAnswer)
+			.then(function(){
+				res.json({message:'saved'});
+			}).catch(function(err){
+			console.log(err)
+			res.json({message:'error'})
+		})
+
+		// update save status
+
+
+
+
+	},
 	getDetails: function(req, res){
 		var teacher = req.user.id;
 		var where = {};

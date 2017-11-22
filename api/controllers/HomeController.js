@@ -373,7 +373,26 @@ module.exports = {
 			res.notFound();
 		})
 	},
-
+	saveCourse : function(req, res) {
+		var teacherId =  req.user.id;
+		var data = {};
+		data.user = req.user;
+		data.active = 'save';
+		let getCourses = function(){
+			return new Promise(function(fullfill, reject){
+				Course.find({teacher:teacherId, status:'save'}).exec(function(err, courses){
+					if(err) return reject(err);
+					data.courses = courses;
+					return fullfill();
+				})
+			})
+		}
+		getCourses().then(function(){
+			res.view('/repository/save', data);
+		}).catch(function(err){
+			res.notFound();
+		})
+	},
 	rejectCourse: function(req, res){
 		var teacherId =  req.user.id;
 		var data = {};

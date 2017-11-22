@@ -154,11 +154,14 @@ module.exports.routes = {
 
   'GET /repository/waiting': 'HomeController.waitingCourse',
 
+  'GET /repository/save': 'HomeController.saveCourse',
   'GET /repository/reject': 'HomeController.rejectCourse',
 
   'GET /repository/edit/:id': 'HomeController.editCourse',
 
   'POST /teacher/new-course': 'CourseController.newCourse',
+
+  'POST /teacher/save-course': 'CourseController.saveCourse',
 
 /////////////////////////////////////////////////////
   'POST /user/myprofile': 'HomeController.myprofile',

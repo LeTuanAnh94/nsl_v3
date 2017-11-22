@@ -1,10 +1,10 @@
 <div id="login-overlay" class="modal-dialog" ng-controller="loginTeacherCtr">
 	<div class="modal-content">
 			<div class="modal-header">
-					<h4 class="modal-title" id="myModalLabel">Đăng nhập vào trang giáo viên</h4>
+					<h4 class="modal-title" id="myModalLabel"><center>Đăng nhập vào trang giáo viên</center></h4>
 			</div>
 			<div class="modal-body">
-					<div class="row">
+					<div class="row">s
 							<div class="col-xs-6">
 									<div class="well">
 											<form name="loginform" class="validate-input" novalidate ng-submit="submit(loginform.$valid)">
@@ -13,23 +13,21 @@
 															<validate-input class="mg-bottom-10" v-model="user.email" v-name="email" v-form="loginform" v-type="email" v-placeholder="Email" v-tooltip-placement="top" v-required="true"></validate-input>
 													</div>
 													<div class="form-group">
-															<label for="password" class="control-label">Password</label>
+															<label for="password" class="control-label">Mật Khẩu</label>
 															<validate-input class="mg-bottom-10" v-model="user.password" v-name="password" v-form="loginform" v-type="password" v-placeholder="Mật khẩu" v-tooltip-placement="top" v-required="true" v-min-length="6" v-max-length="12"></validate-input>
 													</div>
-													<button type="submit" class="btn btn-success btn-block">Login</button>
+													<button type="submit" class="btn btn-success btn-block">Đăng Nhập</button>
 											</form>
 									</div>
 							</div>
 							<div class="col-xs-6">
-									<p class="lead">Register now for <span class="text-success">FREE</span></p>
+									<p class="lead">Đăng Ký <span class="text-success">Miễn Phí</span></p>
 									<ul class="list-unstyled" style="line-height: 2">
-											<li><span class="fa fa-check text-success"></span> See all your orders</li>
-											<li><span class="fa fa-check text-success"></span> Fast re-order</li>
-											<li><span class="fa fa-check text-success"></span> Save your favorites</li>
-											<li><span class="fa fa-check text-success"></span> Fast checkout</li>
-											<li><span class="fa fa-check text-success"></span> Get a gift <small>(only new customers)</small></li>
+											<li><span class="fa fa-check text-success"></span> Đăng Khóa Học Dễ Dàng</li>
+											<li><span class="fa fa-check text-success"></span> Nhận Lương Nhanh Chóng</li>
+
 									</ul>
-									<p><a href="/teacher/register" class="btn btn-info btn-block">Yes please, register now!</a></p>
+									<p><a href="/teacher/register" class="btn btn-info btn-block">Đăng Ký Trở Thành Ngay Bây Giờ</a></p>
 							</div>
 					</div>
 			</div>

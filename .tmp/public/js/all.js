@@ -850,7 +850,7 @@ var myApp;
 					$('#loginModal').modal('show');
 				}else if(res.data.message == 'success'){
 					$rootScope.showAddToCartBtn = false;
-					$rootScope.cartOpen = true;
+					$rootScope.cartOpen = true;//*
 					$rootScope.listCart = res.data.listCourses;
 					$rootScope.listCartMoney = $rootScope.listCart.sum("price");
 					// $rootScope.listCartMoneyOld = $rootScope.listCart.sum("oldPrice");
@@ -877,7 +877,7 @@ var myApp;
 					$rootScope.listCart = res.data.listCourses;
 					if($rootScope.listCart.length != 0) $rootScope.listCartMoney = $rootScope.listCart.sum("price");
 					if($rootScope.listCart.length == 0) $rootScope.listCartMoney = 0;
-					$rootScope.listCartMoneySave = $rootScope.listCart.sumSave("oldPrice","price");
+				    	$rootScope.listCartMoneySave = $rootScope.listCart.sumSave("oldPrice","price");
 				}
 	  		});
 		}
@@ -1379,7 +1379,8 @@ $scope.confirmPasswordValidation = [{
 })();
 (function () {
 	myApp.controller('addLessionCtr', function($scope, $http, $sce, $timeout){
-		$scope.editorModel = 'SKÅL !!!';
+		$scope.editorModel = '!!!';
+		// định dạng course
 		$scope.course = {
 			name:'',
 			category:undefined,
@@ -1403,6 +1404,7 @@ $scope.confirmPasswordValidation = [{
 		        reader.readAsDataURL(input.files[0]);
 		    }
 		}
+		// tải ảnh lên
 		$scope.openInputFile = function(){
 			$("#upload-img").click();
 			$("#upload-img").change(function(){
@@ -1442,10 +1444,12 @@ $scope.confirmPasswordValidation = [{
 				$('#picture-preview').attr('src',$scope.course.pictureData);
 			});
 		}
+		// tạo levels và cate admin tạo sẵn ,
 		$scope.default = {
 			levels:[],
 			categories:[]
 		}
+		// nhận data từ server đẩy lên cho category và level
 		$scope.loadLevelAndCategory = function(){
 			$http.post("/list-simple-level",{name:'',skip:0,limit:999999999},{}).then(function(res){
 	  			if(res.data.message == 'success'){
@@ -1461,7 +1465,7 @@ $scope.confirmPasswordValidation = [{
 		$scope.loadLevelAndCategory();
 
 		//////////////////////////////////
-
+		// tạo model cho chapter mới
 		$scope.newChapter = function(){
 			$scope.course.listCourseCategory.push({
 				UIshow:true,
@@ -1470,6 +1474,7 @@ $scope.confirmPasswordValidation = [{
 				order:$scope.course.listCourseCategory.length
 			});
 		}
+		// tạo model cho lesson, truyền vào chỉ số của chapter để xác định .
 		$scope.newLesson = function(iChapter){
 			$scope.course.listCourseCategory[iChapter].listLesson.push({
 				UIshow:true,
@@ -1482,12 +1487,14 @@ $scope.confirmPasswordValidation = [{
 				order:$scope.course.listCourseCategory[iChapter].listLesson.length
 			});
 		}
+		// tạo model cho newQuestion, truyền vào chỉ số của chapter Lesson để xác định .
 		$scope.newQuestion = function(iChapter, iLesson){
 			$scope.course.listCourseCategory[iChapter].listLesson[iLesson].listQuestion.push({
 				listAnswer:[],
 				content:''
 			});
 		}
+		// tạo model cho newAnswer, truyền vào chỉ số của chapter iChapter iLesson iQuestion  để xác định ,
 		$scope.newAnswer = function(iChapter, iLesson, iQuestion){
 			$scope.course.listCourseCategory[iChapter].listLesson[iLesson].listQuestion[iQuestion].listAnswer.push({
 				content:'',
@@ -1495,12 +1502,14 @@ $scope.confirmPasswordValidation = [{
 			});
 		}
 		///////////////
+		// xóa chapter
 		$scope.deleteChapter = function(iChapter){
 			for(var i = iChapter; i < $scope.course.listCourseCategory.length; i++){
 				$scope.course.listCourseCategory[i].order--;
 			}
 			$scope.course.listCourseCategory.splice (iChapter, 1);
 		}
+		// đảo chapter
 		$scope.swapChapter = function(src,des){
 			console.log(des)
 			if(des < 0 || des >= $scope.course.listCourseCategory.length){
@@ -1570,8 +1579,8 @@ $scope.confirmPasswordValidation = [{
 				}, 100);
 			}
 		}
-		//////////
-		$scope.validation = function(validation){
+		////////// validation new course
+		$scope.validation = function(validation,action){
 			if(!validation) return;
 			if(!$scope.course.pictureData){
 				utils.alert({
@@ -1649,10 +1658,42 @@ $scope.confirmPasswordValidation = [{
 					}
 				}
 			}
-			$scope.submit();
+		if(action == 'approve')	$scope.submit();
+        if(action == 'save') $scope.submitSave();
 		}
+		$scope.submitSave = function() {
+			console.log("submitSave")
+			$http.post("/teacher/save-course",$scope.course,{}).then(function (res) {
+
+				if(res.data.message =='saved'){
+					utils.alert({
+						title:'Thông Báo',
+						msg:'Đã tạo và lưu khóa học',
+						callback:function() {
+							window.location='/repository/save'
+						}
+					})
+				}
+				else{
+					utils.alert({
+						title:'Thông báo',
+						msg: 'Có lỗi xảy ra,tạo không thành công'
+					});
+				}
+
+			}
+			)
+		}
+
 		$scope.submit = function(){
+
+            // var btnSave =document.getElementById('btnSave').value;
+            // var btnApprove =document.getElementById('btnApprove').value;
+				console.log("submit")
+
+
 			$http.post("/teacher/new-course",$scope.course,{}).then(function(res){
+			//	document.getElementById('check').value = $('btnWaitApprove').text();
 	  			if(res.data.message == 'success'){
 	  				utils.alert({
 	                    title:'Thông báo',
@@ -1669,6 +1710,10 @@ $scope.confirmPasswordValidation = [{
 	  			}
 	  		});
 		}
+
+
+
+
 	});
 	
 })();

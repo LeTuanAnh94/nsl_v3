@@ -9,7 +9,7 @@
 					$('#loginModal').modal('show');
 				}else if(res.data.message == 'success'){
 					$rootScope.showAddToCartBtn = false;
-					$rootScope.cartOpen = true;
+					$rootScope.cartOpen = true;//*
 					$rootScope.listCart = res.data.listCourses;
 					$rootScope.listCartMoney = $rootScope.listCart.sum("price");
 					// $rootScope.listCartMoneyOld = $rootScope.listCart.sum("oldPrice");
@@ -36,7 +36,7 @@
 					$rootScope.listCart = res.data.listCourses;
 					if($rootScope.listCart.length != 0) $rootScope.listCartMoney = $rootScope.listCart.sum("price");
 					if($rootScope.listCart.length == 0) $rootScope.listCartMoney = 0;
-					$rootScope.listCartMoneySave = $rootScope.listCart.sumSave("oldPrice","price");
+				    	$rootScope.listCartMoneySave = $rootScope.listCart.sumSave("oldPrice","price");
 				}
 	  		});
 		}

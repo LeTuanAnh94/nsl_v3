@@ -45,7 +45,7 @@ module.exports.connections = {
     host: 'localhost',
     user: 'root', //optional
     password: 'abc123', //optional
-    database: 'mall' //optional
+    database: 'newschema' //optional
   },
 
   /***************************************************************************

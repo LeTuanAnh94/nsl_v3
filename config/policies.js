@@ -35,7 +35,9 @@ module.exports.policies = {
     'editCourse': 'sessionTeacherLogin',
     'repository': 'sessionTeacherLogin',
     'waitingCourse': 'sessionTeacherLogin',
+    'saveCourse':'sessionTeacherLogin',//
     'withdraw': 'sessionTeacherLogin',
+
     
 
 

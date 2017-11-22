@@ -34,9 +34,6 @@ module.exports = {
       via:'course'
     },
 
-
-
-
     name:{
       type:'string',
       size: 256
@@ -64,7 +61,7 @@ module.exports = {
     },
     status:{
       type: 'string',
-      enum: ['waiting','reject','active'],
+      enum: ['waiting','reject','save','active'],
       defaultsTo: 'waiting'
     },
     adminMessage:{
